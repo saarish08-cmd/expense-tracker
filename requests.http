@@ -1,0 +1,11 @@
+POST http://localhost:8080/transactions
+Content-Type: application/json
+
+{
+  "date": "2026-07-01",
+  "description": "Tim Hortons",
+  "amount": 5.5
+}
+
+### //Separates ultiple requests in one file
+GET http://localhost:8080/transactions
