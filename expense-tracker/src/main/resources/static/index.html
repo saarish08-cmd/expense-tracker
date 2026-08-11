@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ledger — See where your money goes</title>
+    <meta name="description" content="A calm, clear expense tracker. Upload a statement, watch your spending organise itself into categories and months. No bank linking, nothing leaves your machine.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a class="brand" href="index.html">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Ledger</span>
+    </a>
+    <nav class="nav">
+        <a href="#features">How it works</a>
+    </nav>
+    <div class="topbar-actions">
+        <a class="btn btn-solid" href="dashboard.html">Open dashboard</a>
+    </div>
+</header>
+
+<main>
+    <section class="hero" id="overview">
+        <div class="hero-copy">
+            <p class="eyebrow">Privacy-first expense tracking</p>
+            <h1>Every dollar,<br><em>accounted for.</em></h1>
+            <p class="lede">
+                Drop in a bank statement and Ledger sorts it into categories, months and habits —
+                so the story of your spending reads itself. No bank linking, no third-party access —
+                your data stays exactly where you put it.
+            </p>
+            <div class="hero-actions">
+                <a class="btn btn-solid btn-lg" href="dashboard.html">Open the dashboard</a>
+                <a class="btn btn-line btn-lg" href="#features">See how it works</a>
+            </div>
+        </div>
+
+        <aside class="hero-panel">
+            <div class="panel-head">
+                <span class="label">Spent this month</span>
+                <span class="tag tag-down">−8.4%</span>
+            </div>
+            <p class="figure">$1,300.00</p>
+            <p class="figure-sub">across 41 transactions in 4 categories</p>
+            <ul class="mini-bars">
+                <li><span>Transport</span><i style="--w:100%"></i><b>$494</b></li>
+                <li><span>Food &amp; Dining</span><i style="--w:63%"></i><b>$312</b></li>
+                <li><span>Subscriptions</span><i style="--w:22%"></i><b>$111</b></li>
+                <li><span>Uncategorized</span><i style="--w:17%"></i><b>$83</b></li>
+            </ul>
+        </aside>
+    </section>
+
+    <section class="features" id="features">
+        <p class="eyebrow" style="text-align:center;">How it works</p>
+        <h2 class="section-title">Three steps, nothing else</h2>
+
+        <div class="feature-grid">
+            <article class="card feature-card">
+                <span class="feature-num">01</span>
+                <h3>Upload your statement</h3>
+                <p>Export a CSV from your bank's online portal and drop it in. Ledger reads it, cleans up the messy merchant text, and gets to work — no manual entry required.</p>
+            </article>
+            <article class="card feature-card">
+                <span class="feature-num">02</span>
+                <h3>Auto-categorized</h3>
+                <p>A rule-based engine sorts every transaction into a category — food, transport, subscriptions — so you see the real shape of your spending at a glance.</p>
+            </article>
+            <article class="card feature-card">
+                <span class="feature-num">03</span>
+                <h3>Private by design</h3>
+                <p>No bank credentials, no third-party APIs, nothing leaves your machine. Your statement never touches a server you don't control.</p>
+            </article>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <span class="brand-mark small"></span>
+    <p>Ledger — a quieter way to watch your money.</p>
+</footer>
+
+</body>
+</html>
