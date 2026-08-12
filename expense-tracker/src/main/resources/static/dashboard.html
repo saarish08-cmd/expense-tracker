@@ -108,8 +108,8 @@
         <div class="card-head">
             <h2>Recent activity</h2>
             <div class="filters">
-                <input class="field" type="search" placeholder="Search description…" aria-label="Search transactions">
-                <select class="field" aria-label="Filter by category">
+                <input class="field" type="search" placeholder="Search description…" aria-label="Search transactions" id = "txSearch">
+                <select class="field" aria-label="Filter by category" id = "txCategoryFilter">
                     <option>All categories</option>
                     <option>Food &amp; Dining</option>
                     <option>Rent</option>
@@ -257,7 +257,12 @@
 
         let visibleCount = 5;
         function renderActivityTable(){
-            const rows = sortedTx.slice(0, visibleCount).map(tx => `
+            //Filter Search
+            const searchTerm = document.getElementById('txSearch').value.toLowerCase();
+            const selectedCategory = document.getElementById('txCategoryFilter').value;
+            const filteredTx = sortedTx.filter(tx => tx.description.toLowerCase().includes(searchTerm) && (selectedCategory === 'All categories' || tx.category === selectedCategory));
+
+            const rows = filteredTx.slice(0, visibleCount).map(tx => `
     <tr>
         <td class="date">${tx.date}</td>
         <td class="desc">${tx.description}</td>
@@ -267,7 +272,7 @@
 `).join('');
             document.getElementById('txTableBody').innerHTML = rows;
             const btn = document.getElementById('showMoreBtn');
-            if(visibleCount >= sortedTx.length){
+            if(visibleCount >= filteredTx.length){
                 btn.textContent = "That's everything";
                 btn.disabled = true;
             }
@@ -279,6 +284,16 @@
         renderActivityTable();
         document.getElementById('showMoreBtn').addEventListener('click', () => {
             visibleCount += 5;
+            renderActivityTable();
+        });
+
+        //Reset visible count back to 5 after filter search takes place
+        document.getElementById('txSearch').addEventListener('input', () => {
+            visibleCount = 5;
+            renderActivityTable();
+        });
+        document.getElementById('txCategoryFilter').addEventListener('change', () => {
+            visibleCount = 5;
             renderActivityTable();
         })
 
@@ -298,6 +313,11 @@
 
         const categoryCtx = document.getElementById('categoryChart').getContext('2d');
         const categoryGradients = categoryLabels.map(name => makeBarGradient(categoryCtx, CATEGORY_COLORS[name] || FALLBACK_COLOR, true));
+
+        //Search & Filter Feature in Recent Activity
+        const filterSelect = document.getElementById('txCategoryFilter');
+        filterSelect.innerHTML = '<option>All categories</option>' + categoryLabels.map(name => `<option>${name}</option>`).join('');
+
         new Chart(document.getElementById('categoryChart'), {
             type: 'bar',
             data: {
