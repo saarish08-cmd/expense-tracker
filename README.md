@@ -60,10 +60,10 @@ The app serves both the API and the frontend from `localhost:8080`.
 
 ## Screenshots
 
-![Landing page](landing.png)
-![Dashboard overview](dashboard-overview.png)
-![Recent activity, default view](activity-default.png)
-![Recent activity, filtered](activity-filtered.png)
+![Landing page](./assets/landing.png)
+![Dashboard overview](./assets/dashboard-overview.png)
+![Recent activity, default view](./assets/activity-default.png)
+![Recent activity, filtered](./assets/activity-filtered.png)
 
 
 ## Roadmap
