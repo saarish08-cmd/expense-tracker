@@ -8,6 +8,7 @@ public class Transaction {
     private String description;
     private double amount;
     private String category;
+    private String sessionId;;
 
     @Id //Marks a class field as the primary key for the database
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Tells database to automatically create unique values for the primary key
@@ -54,5 +55,13 @@ public class Transaction {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

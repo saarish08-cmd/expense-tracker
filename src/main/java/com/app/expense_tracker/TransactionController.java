@@ -5,6 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.*;
 import java.time.*;
 import java.util.*;
+import jakarta.servlet.http.HttpSession;
 
 @RestController //Tells spring that this class handles web requests and sends data back directly
 @RequestMapping("/transactions")
@@ -20,19 +21,21 @@ public class TransactionController {
 
     //Method For Saving
     @PostMapping() //Maps website request to this method
-    public Transaction addTransaction(@RequestBody Transaction transaction){
+    public Transaction addTransaction(@RequestBody Transaction transaction, HttpSession session){
+        transaction.setSessionId(session.getId());
         return transactionRepository.save(transaction);
     }
 
     //Method For Reading Everything Back Onto The Website
     @GetMapping() //Runs the following method when someone visits the URL with this request
-    public List<Transaction> getAllTransactions(){
-        return transactionRepository.findAll();
+    public List<Transaction> getAllTransactions(HttpSession session)
+    {
+        return transactionRepository.findBySessionId(session.getId());
     }
 
     //Upload CSV Export
     @PostMapping("/upload")
-    public String uploadPhoto(@RequestParam("file")MultipartFile file) throws IOException{ //MultipartFile is Spring's representation of an uploaded file
+    public String uploadPhoto(@RequestParam("file")MultipartFile file, HttpSession session) throws IOException{ //MultipartFile is Spring's representation of an uploaded file
         int counter = 0;
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))){
            String line;
@@ -49,6 +52,7 @@ public class TransactionController {
                transaction.setDescription(parts[1]);
                transaction.setAmount(Double.parseDouble(parts[2]));
                transaction.setCategory(categorizer.categorize((parts[1])));
+               transaction.setSessionId(session.getId());
                transactionRepository.save(transaction);
                counter++;
            }
@@ -57,8 +61,8 @@ public class TransactionController {
     }
 
     @GetMapping("/summary")
-    public Map <String, Double>  summarize(){
-        List<Transaction> transactions = transactionRepository.findAll();
+    public Map <String, Double>  summarize(HttpSession session){
+        List<Transaction> transactions = transactionRepository.findBySessionId(session.getId());
         Map<String, Double> categoryTotals = new HashMap<>();
         for (Transaction transaction : transactions){
             categoryTotals.put(transaction.getCategory(), categoryTotals.getOrDefault(transaction.getCategory(), 0.0) + transaction.getAmount());
@@ -67,8 +71,8 @@ public class TransactionController {
     }
 
     @GetMapping("/monthly-summary")
-    public Map<String, Double>  monthlySummary() {
-        List<Transaction> transactions = transactionRepository.findAll();
+    public Map<String, Double>  monthlySummary(HttpSession session) {
+        List<Transaction> transactions = transactionRepository.findBySessionId(session.getId());
         Map<String, Double> monthlyTotals = new HashMap<>();
         for(Transaction transaction : transactions){
             String key = transaction.getDate().getYear() + "-" + transaction.getDate().getMonthValue();
